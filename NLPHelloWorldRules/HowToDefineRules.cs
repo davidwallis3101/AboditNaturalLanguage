@@ -4,6 +4,7 @@ using AboditNLP.Adjective;
 using HelloWorld;
 using AboditNLP.Attributes;
 using AboditNLP.Verb;
+using Microsoft.Extensions.Logging;
 
 namespace NLPHelloWorldRules
 {
@@ -51,6 +52,11 @@ namespace NLPHelloWorldRules
         private readonly ExtraStateInformation es;
 
         /// <summary>
+        /// Logger
+        /// </summary>
+        private readonly ILogger<NLP> log;
+
+        /// <summary>
         /// Instead of including the code that executes for each rule it's often better to separate
         /// that code into its own class. This is analagous to avoiding the 'fat controller'
         /// anti-pattern in MVC applications. This also makes testing easier - you can mock the
@@ -58,13 +64,14 @@ namespace NLPHelloWorldRules
         /// </summary>
         private readonly IIntentDemo intent;
 
-        public SampleRules(IListener st, INLP nlp, IIntentDemo intent, ExtraStateInformation es)
+        public SampleRules(ILogger<NLP> log, IListener st, INLP nlp, IIntentDemo intent, ExtraStateInformation es)
         {
             // store the dependencies
             this.st = st;
             this.nlp = nlp;
             this.intent = intent;
             this.es = es;
+            this.log = log;
         }
 
         public NLPActionResult Hello(Noun.hello hello)
