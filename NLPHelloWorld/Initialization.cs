@@ -4,6 +4,7 @@ using Autofac;
 using Microsoft.Extensions.Logging;
 using NLPHelloWorldRules;
 using System;
+using NLPHelloWorldSampleObject;
 
 namespace NLPHelloWorld
 {
@@ -32,6 +33,14 @@ namespace NLPHelloWorld
         public static Lazy<IContainer> AutofacContainer = new Lazy<IContainer>(() =>
         {
             var builder = new ContainerBuilder();
+
+            // DW: not really sure where this is best placed to sit, or how to inject via constructor to this "method?" as it doesn't feel correct for it to sit here.
+            // but for the purposes of this I'll go with something that works with what I currenly have :D 
+            // Interface is a bit pointless at the moment but was trying to replicate your example as close as I could initially.
+
+            // attempt to inject our example "house object"
+            IHouse house = init.createExample();
+            builder.RegisterInstance(house).As<IHouse>();
 
             // A LexemeStore is used to store all in-memory words in an efficient TernaryTree structure
             builder.RegisterType<LexemeStore>().SingleInstance().AsImplementedInterfaces();

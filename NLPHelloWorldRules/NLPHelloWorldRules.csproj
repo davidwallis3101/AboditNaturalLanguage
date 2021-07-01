@@ -21,4 +21,8 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NLPHelloWorldSampleObject\NLPHelloWorldSampleObject.csproj" />
+  </ItemGroup>
 </Project>
